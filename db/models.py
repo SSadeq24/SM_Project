@@ -21,3 +21,20 @@ class DbPost(Base):
   user_id = Column(Integer, ForeignKey('user.id'))
   user = relationship('DbUser', back_populates='items')
 
+class DbFriendship(Base):
+    __tablename__ = "friendship"
+    id = Column(Integer, primary_key=True, index=True)
+    user_id = Column(Integer, ForeignKey('users.id'))
+    # friend_id = Column(Integer, ForeignKey('users.id'))
+    # friendships = relationship("DbFriendship", foreign_keys="[DbFriendship.user_id]")
+    friend_id = Column(Integer) 
+   
+class DbFriendships(Base):
+     __tablename__ = "friendships"
+     id = Column(Integer, primary_key=True, index=True)
+     user_id = Column(Integer, ForeignKey('users.id'))
+    # friend_id = Column(Integer, ForeignKey('users.id'))
+    # friendships = relationship("DbFriendship", foreign_keys="[DbFriendship.user_id]")
+     friends_id = Column(Integer) 
+     friends_request = Column(Integer)
+
