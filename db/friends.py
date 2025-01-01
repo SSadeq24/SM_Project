@@ -27,4 +27,4 @@ def approve_friend_request(id: int, request: Friend_Request, db: Session = Depen
 
 @router.put("/{id}/deny")
 def dreny_friend_request(id: int, request: Friend_Request, db: Session = Depends(get_db)):
-    return db_user.deny_request(id, request, db) 
+    return db_user.deny_request(id, request, db)
