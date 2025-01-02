@@ -1,7 +1,7 @@
 from urllib import request
-from fastapi import HTTPException
+from fastapi import HTTPException, status
 from db.models import DbFriendship, DbUser
-from routers.schemas import User, UserBase
+from routers.schemas import User, UserBase, Friend_Request
 from sqlalchemy.orm import Session
 from db.hashing import Hash
 

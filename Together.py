@@ -14,6 +14,6 @@ app.include_router(authentication.router)
 
 @app.get('/')
 def root():
-    return "Hello World!"
+    return {"message": "Welcome to LinkUp, a social network project by Samar, Sadeq, Serhiy, and Ali"}
 
 models.Base.metadata.create_all(engine)
