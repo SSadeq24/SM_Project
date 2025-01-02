@@ -4,9 +4,11 @@ from db.database import engine
 from routers import user
 from routers import post
 from Auth import authentication
-from fastapi import FastAPI
 from user import user_router
 from post import post_router
+from .db.models import DbUser, DbPost
+from routers.post import DbPost
+from routers.user import DbUser
 
 app = FastAPI()
 

@@ -3,12 +3,14 @@ from fastapi import HTTPException
 from sqlalchemy.orm import polymorphic_union
 from sqlalchemy.orm.session import Session
 from db.models import DbPost
+from post import posts
 from routers.schemas import PostBase
 from routers.schemas import PostDisplay
 from fastapi import HTTPException, status
 from database import save_post
 from models import DbPost, DbUser
 from db_user import get_user_by_id
+import user
 
 def create(request: PostBase, db: Session):
      new_post = DbPost(
@@ -31,7 +33,7 @@ def delete(id: int, db: Session):
    if not post:
       return HTTPException(status_code=status.HTTP_404_NOT_FOUND,
       detail='Post with id {d} not found)')
-   if post.user.id != id:
+   if post.user_id != id:
       raise HTTPException(status_code=status.HTTP_403_FORBIDDEN,
       detail='Only post creator can delete post')
    db.delete(post)
@@ -39,12 +41,12 @@ def delete(id: int, db: Session):
    return 'ok'
 
 def create_post(author: str, content: str):
-    if author not in users:
+    if author not in user:
         raise ValueError("Author not found")
     save_post(author, content)
 
 def get_wall_posts(username: str):
-    user = users.get(username)
+    user = user.get(username)
     if not user:
         return []
     return [post for post in posts if post["author"] == username or post["author"] in user.get("friends", [])]

@@ -2,8 +2,8 @@ from sqlalchemy import create_engine
 from sqlalchemy.orm import declarative_base
 from sqlalchemy.orm import sessionmaker
 from db.models import DbUser, DbPost
-from post import posts
-import user
+from post import PostBase
+from user import UserBase
  
 SQLALCHEMY_DATABASE_URL = 'sqlite:///./Together.db'
  

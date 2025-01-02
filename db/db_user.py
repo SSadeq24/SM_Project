@@ -1,4 +1,7 @@
+import stat
 from urllib import request
+
+from fastapi import HTTPException
 from db.models import DbUser
 from routers.schemas import UserBase
 from sqlalchemy.orm import Session
@@ -6,6 +9,7 @@ from db.hashing import Hash
 from database import save_user
 from db.hashing import hash_password
 from models import DbUser
+import user
 
 
 def create_user(request: UserBase, db: Session):
@@ -18,7 +22,7 @@ def create_user(request: UserBase, db: Session):
 def get_user_by_username(db: Session, username: str):
   user = db.query(DbUser).filter(DbUser.username == username).first()
   if not user:
-    raise HTTPException(status_code=status.HTTP_404_NOT_FOUND,
+    raise HTTPException(status_code=stat.HTTP_404_NOT_FOUND,
       detail=f'User with username {username} not found')
   return user
 
@@ -27,7 +31,7 @@ def create_user(username: str, password: str):
     save_user(username, hashed_password)
 
 def get_user_by_username(username: str):
-    return users.get(username)
+    return user.get(username)
 
 def get_user_by_id(user_id: int):
-    return users.get()#where id == user_id
+    return user.get()#where id == user_id
