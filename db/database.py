@@ -1,7 +1,7 @@
 from sqlalchemy import create_engine
 from sqlalchemy.orm import declarative_base
 from sqlalchemy.orm import sessionmaker
-
+from db.models import DbUser, DbPost
  
 SQLALCHEMY_DATABASE_URL = 'sqlite:///./Together.db'
  
@@ -17,3 +17,9 @@ def get_db():
         yield db
     finally:
         db.close()
+
+def save_user(username: str, hashed_password: str):
+    users[username] = {"password": hashed_password, "posts": []}
+
+def save_post(author: str, content: str):
+    posts.append({"author": author, "content": content})       

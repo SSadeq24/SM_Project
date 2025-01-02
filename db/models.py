@@ -3,6 +3,11 @@ from sqlalchemy.sql.schema import ForeignKey
 from .database import Base
 from sqlalchemy import Column, Integer, String, DateTime
 from sqlalchemy.orm import relationship
+#from typing import List, Dict
+
+#Mock database
+#DbUser: Dict[str, Dict] = {}
+#DbPosts: List[Dict] = []
 
 class DbUser(Base):
   __tablename__ = 'user'

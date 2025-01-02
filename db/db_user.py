@@ -3,6 +3,9 @@ from db.models import DbUser
 from routers.schemas import UserBase
 from sqlalchemy.orm import Session
 from db.hashing import Hash
+from database import save_user
+from db.hashing import hash_password
+from models import users
 
 
 def create_user(request: UserBase, db: Session):
@@ -18,3 +21,13 @@ def get_user_by_username(db: Session, username: str):
     raise HTTPException(status_code=status.HTTP_404_NOT_FOUND,
       detail=f'User with username {username} not found')
   return user
+
+def create_user(username: str, password: str):
+    hashed_password = hash_password(password)
+    save_user(username, hashed_password)
+
+def get_user_by_username(username: str):
+    return users.get(username)
+
+def get_user_by_id(user_id: int):
+    return users.get()#where id == user_id

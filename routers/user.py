@@ -6,7 +6,11 @@ from routers.schemas import UserDisplay
 from db import db_user
 from routers.schemas import UserBase
 
+from fastapi import APIRouter, HTTPException
+from pydantic import BaseModel
+from db_user import create_user, get_user_by_username
 
+user_router = APIRouter()
 
 
 router = APIRouter(
@@ -19,3 +23,13 @@ def create_user(request: UserBase, db: Session = Depends(get_db)):
 
     
         
+class UserCreate(BaseModel):
+    username: str
+    password: str
+
+@user_router.post("/")
+async def register_user(user: UserCreate):
+    if get_user_by_username(user.username):
+        raise HTTPException(status_code=400, detail="Username already exists")
+    user = create_user(user.username, user.password)
+    return user #{"message": "User registered successfully"}

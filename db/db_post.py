@@ -6,6 +6,9 @@ from db.models import DbPost
 from routers.schemas import PostBase
 from routers.schemas import PostDisplay
 from fastapi import HTTPException, status
+from database import save_post
+from models import posts, users
+from db_user import get_user_by_id
 
 def create(request: PostBase, db: Session):
      new_post = DbPost(
@@ -34,3 +37,26 @@ def delete(id: int, db: Session):
    db.delete(post)
    db.commit()
    return 'ok'
+
+def create_post(author: str, content: str):
+    if author not in users:
+        raise ValueError("Author not found")
+    save_post(author, content)
+
+def get_wall_posts(username: str):
+    user = users.get(username)
+    if not user:
+        return []
+    return [post for post in posts if post["author"] == username or post["author"] in user.get("friends", [])]
+
+def get_wall_posts_by_user(author_id: int):
+    return [post for post in posts if post["author_id"] == author_id]
+
+def get_wall_for_user(user_id: int):
+    user = get_user_by_id(user_id)
+    return [post for post in posts if post["author"] in user.get("friends", [])]
+
+def get_wall_post(id: int):
+    #post = db.query(DBPost).filter(DBPost.id == id).first()
+    #users.get(username)
+    return {id: id}
