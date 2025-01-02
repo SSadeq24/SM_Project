@@ -5,7 +5,7 @@ from sqlalchemy.orm import Session
 from db.hashing import Hash
 from database import save_user
 from db.hashing import hash_password
-from models import users
+from models import DbUser
 
 
 def create_user(request: UserBase, db: Session):

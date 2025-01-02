@@ -1,0 +1,7 @@
+{
+    "python.analysis.extraPaths": [
+        "./db/db_",
+        "./db/db_",
+        "./routers"
+    ]
+}

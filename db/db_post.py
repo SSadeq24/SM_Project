@@ -7,7 +7,7 @@ from routers.schemas import PostBase
 from routers.schemas import PostDisplay
 from fastapi import HTTPException, status
 from database import save_post
-from models import posts, users
+from models import DbPost, DbUser
 from db_user import get_user_by_id
 
 def create(request: PostBase, db: Session):

@@ -8,7 +8,7 @@ from db import db_post
 from typing import List
 from routers.schemas import UserAuth
 from fastapi import APIRouter
-from db_post import create_post, get_wall_posts, get_wall_post
+from db.db_post import create_post, get_wall_posts, get_wall_post
 from pydantic import BaseModel
 from typing import List, Optional
 

@@ -20,8 +20,7 @@ app.include_router(post_router, prefix="/posts", tags=["Posts"])
 
 @app.get('/')
 def root():
-    return "Hello World!"
-async def root():
+
     return {"message": "Welcome to the Social Network API (ToGether), by: Samar, Sadeq, Serhiy and Ali "}
 
 models.Base.metadata.create_all(engine)
