@@ -61,11 +61,5 @@ def get_db():
         db.close()
 
 
-# Define your models here
-class User(Base):
-    __tablename__ = 'users'  # Table name in the database
-    id = Column(Integer, primary_key=True, index=True)
-    username = Column(String, unique=True, index=True)
-    friends = Column(String)  # Adjust the type and properties according to your schema
-    friend_requests = Column(String)  # Adjust the type and properties according to your schema
+
 
